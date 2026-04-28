@@ -170,6 +170,8 @@ const (
 5. 变量名称一定要见名思意：变量名称建议用名词，方法名称建议用动词。
 6. 变量命名一般采用驼峰式，当遇到特有名词（缩写或简称，如 DNS）的时候，特有名词根据是否私有全部大写或小写。
 
+---
+
 
 
 ## 2. 基本数据类型
@@ -589,6 +591,8 @@ func main() {
 >
 > 在 go 语言中数值类型没法直接转换成 `bool` 类型 `bool` 类型也没法直接转换成数值类型
 
+---
+
 ## 3. 运算符
 
 ### 3.1 算术运算符
@@ -715,6 +719,8 @@ if a < 100 || b < 0 {
     fmt.Println("条件成立，b<0不会被执行")
 }
 ```
+
+----
 
 ## 4. 流程控制
 
@@ -941,6 +947,8 @@ breakTag:
 	fmt.Println("breakTag")
 ```
 
+---
+
 ## 5. 数组
 
 数组是指一系列同一类型数据的集合。数组中包含的每个数据被称为数组元素，这种类型可以是任意的原始类型，比如 int、 string 等，也可以是用户自定义的类型。 
@@ -1038,6 +1046,8 @@ func main() {
 >
 > 1. 数组支持 `==`、 `!=` 操作符，因为内存总是被初始化过的。
 > 2. `[n]*T` 表示指针数组，`*[n]T` 表示数组指针。
+
+---
 
 ## 6. 切片
 
@@ -1370,6 +1380,8 @@ sort.Sort(sort.Reverse(sort.IntSlice(intList)))
 fmt.Println(intList) // [9 8 7 6 5 4 3 2 1 0]
 ```
 
+---
+
 ## 7. 哈希表
 
 ### 7.1 哈希表的声明
@@ -1416,7 +1428,6 @@ userInfo := map[string]string{
     "password": "123456",
 }
 fmt.Println(userInfo) // map[password:123456 username:zhangsan]
-
 ```
 
 ### 7.2 判断键是否存在
@@ -1493,6 +1504,8 @@ fmt.Println(scoreMap) // map[张三:90 李四:80 王五:70]
 delete(scoreMap, "张三")
 fmt.Println(scoreMap) // map[李四:80 王五:70]
 ```
+
+---
 
 ## 8. 函数
 
@@ -1891,6 +1904,8 @@ func main() {
 // continue...
 ```
 
+---
+
 ## 9. 指针
 
 指针也是一个变量，但它是一种特殊的变量，它存储的数据不是一个普通的值，而是另一个变量的内存地址。
@@ -2020,6 +2035,10 @@ fmt.Println(userinfo)
 1. 二者都是用来做内存分配的。
 2. `make()` 只用于 `slice`、`map` 以及 `channel` 的初始化，返回的还是这三个引用类型本身。
 3. 而 `new()` 用于类型的内存分配，并且内存对应的值为类型零值，返回的是指向类型的指针。
+
+---
+
+---
 
 ## 10. 结构体
 
@@ -2385,6 +2404,8 @@ func main() {
 // Animal 旺财 eats!
 ```
 
+---
+
 ## 11. JSON
 
 ### 11.1 JSON 序列化和反序列化
@@ -2522,6 +2543,8 @@ func main() {
 	fmt.Printf("data:%#v\n", string(data))
 }
 ```
+
+---
 
 ## 12. 包
 
@@ -2688,6 +2711,10 @@ go get github.com/shopspring/decimal
 ```sh
 go mod tidy
 ```
+
+---
+
+---
 
 ## 13. 接口
 
@@ -3028,6 +3055,8 @@ func main() {
 	animal.Move() // 小猫 跑
 }
 ```
+
+----
 
 ## 14. 协程
 
@@ -3517,6 +3546,8 @@ func main() {
 }
 ```
 
+---
+
 ## 15. 反射
 
 ### 15.1 什么是发射
@@ -3906,8 +3937,363 @@ func main() {
 > 1. 基于反射的代码是极其脆弱的，反射中的类型错误会在真正运行的时候才会引发 `panic`，那很可能是在代码写完的很长时间之后。
 > 2. 大量使用反射的代码通常难以理解。
 
+---
+
 ## 16. IO 流
 
 ### 16.1 打开和关闭文件
 
-#### 16.1.1 
+`os.Open()` 函数能够打开一个文件， 返回一个 `*File` 和一个 `err`。  
+
+> [!tip]
+>
+> 操作完成文件对象以后一定要记得关闭文件
+
+```go
+// 打开文件
+file, err := os.Open(".//.gitignore")
+defer func(file *os.File) {
+    err := file.Close()
+    if err != nil {
+        return
+    }
+}(file)
+if err != nil {
+    return
+}
+```
+
+### 16.2 读取文件
+
+#### 16.2.1 file.Read() 
+
+`file.Read()` 方法定义如下：  
+
+```go
+func (f *File) Read(b []byte) (n int, err error)
+```
+
+它接收一个字节切片， 返回读取的字节数和可能的具体错误， 读到文件末尾时会返回 0 和 `io.EOF`。 
+
+```go
+// 读取文件
+var buf = make([]byte, 128) // 一次 128 字节
+read, err := file.Read(buf)
+if err == io.EOF {
+    fmt.Println("EOF")
+    return
+}
+if err != nil {
+    fmt.Println(err)
+    return
+}
+fmt.Printf("read: %d\n", read)
+fmt.Println(string(buf[:read]))
+```
+
+#### 16.2.2 循环读取
+
+使用 for 循环读取文件中的所有数据  
+
+```go
+// 循环读取文件
+var content []byte
+var buffer = make([]byte, 128)
+
+for {
+    read, err := file.Read(buffer)
+    if err == io.EOF {
+        fmt.Println("EOF")
+        break
+    }
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    content = append(content, buffer[:read]...)
+}
+fmt.Println(string(content))
+```
+
+#### 16.2.3 bufio.NewReader()
+
+`bufio` 是在 `file` 的基础上封装了一层 API， 支持更多的功能。
+
+```go
+reader := bufio.NewReader(file)
+for {
+    line, err := reader.ReadString('\n')
+    if err == io.EOF {
+        if len(line) != 0 {
+            fmt.Println(line)
+        }
+        fmt.Println("EOF")
+        break
+    }
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    fmt.Println(line)
+}
+```
+
+#### 16.2.4 ioutil.ReadFile()
+
+`io/ioutil` 包的 `ReadFile()` 方法能够读取完整的文件， 只需要将文件名作为参数传入。  
+
+```go
+contents, err := ioutil.ReadFile(".//.gitignore")
+if err != nil {
+    fmt.Println("Error:", err)
+    return
+}
+fmt.Println(string(contents))
+```
+
+> [!Note]
+>
+> `ioutil` 包已经在 Go 1.16 版本之后被废弃了
+
+### 16.3 文件写入
+
+`os.OpenFile()` 函数能够以指定模式打开文件， 从而实现文件写入相关功能。  
+
+```go
+func OpenFile(name string, flag int, perm FileMode) (*File, error) {
+    ...
+}
+```
+
+其中：
+
+- `name`： 要打开的文件名 
+- `flag`： 打开文件的模式。 
+- `perm`： 文件权限， 一个八进制数。 r（读） 04， w（写） 02， x（执行） 01  
+
+#### 16.3.1 file.Write()
+
+```go
+// 创建一个文件
+file, err := os.OpenFile(
+    "./demo34/test.txt", // 文件名
+    os.O_CREATE|os.O_RDWR,    // 创建和读写模式
+    0666)
+
+if err != nil {
+    return
+}
+defer func(file *os.File) {
+    err := file.Close()
+    if err != nil {
+        return
+    }
+}(file)
+
+contents := "你好 Golang\n"
+_, err = file.Write([]byte(contents))
+if err != nil {
+    return
+} // 写入切片
+_, err = file.WriteString("直接写入") // 写入字符串
+if err != nil {
+    return
+}
+```
+
+#### 16.3.2 bufio.NewWriter()
+
+```go
+writer := bufio.NewWriter(file)
+
+_, err = writer.WriteString("\nHello World\n")
+if err != nil {
+    return
+}
+err = writer.Flush()
+if err != nil {
+    return
+} // 将缓存中的内容写入文件
+```
+
+#### 16.3.3 ioutil.WriteFile()
+
+```go
+str := "hello world"
+err = ioutil.WriteFile("./demo34/test.txt", []byte(str), 0666)
+if err != nil {
+    return
+}
+```
+
+
+
+---
+
+## 17. 泛型
+
+### 17.1 泛型的概念
+
+Go 泛型的核心是**类型参数**（Type Parameters）和**类型约束**（Type Constraints）：
+
+- **类型参数**：用方括号`[]`声明在函数名或类型名之后，代表一组可能的类型。
+- **类型约束**：限制类型参数的取值范围，确保代码中对类型参数的操作是合法的
+
+```go
+// 泛型函数
+func 函数名[T 类型约束](参数 T) 返回值 T { ... }
+
+// 泛型类型
+type 类型名[T 类型约束] struct {
+    字段 T
+}
+```
+
+Go 语言提供了两个内置的基础约束：
+
+- **`any`**：等价于`interface{}`，表示任意类型。
+- **`comparable`**：表示所有可比较的类型（支持`==`和`!=`操作），适用于需要比较操作的场景（如 `map` 的 `key`）
+
+```go
+package main
+
+import "fmt"
+
+// Swap 泛型函数：交换两个值
+func Swap[T any](a, b *T) {
+	*a, *b = *b, *a
+}
+
+// 使用示例
+func main() {
+	x, y := 10, 20
+	Swap(&x, &y)      // 类型推断：无需显式指定T=int
+	fmt.Println(x, y) // 输出 20 10
+
+	s1, s2 := "hello", "world"
+	Swap(&s1, &s2)      // 类型推断：T=string
+	fmt.Println(s1, s2) // 输出 world hello
+}
+```
+
+### 17.2 类型约束
+
+#### 17.2.1 联合类型约束
+
+使用`|`操作符指定多个允许的类型，适用于需要限制类型范围的场景：
+
+```go
+// 支持int64和float64类型的求和函数
+func SumNumbers[K comparable, V int64 | float64](m map[K]V) V {
+    var sum V
+    for _, v := range m {
+        sum += v
+    }
+    return sum
+}
+```
+
+#### 17.2.2 自定义接口约束
+
+通过接口定义更复杂的类型约束，接口可以包含方法签名和类型集：
+
+```go
+// 定义有序类型约束（支持 < 比较操作）
+type Ordered interface {
+    int | int8 | int16 | int32 | int64 |
+    uint | uint8 | uint16 | uint32 | uint64 | uintptr |
+    float32 | float64 |
+    string
+}
+
+// 泛型函数：查找切片中的最大值
+func Max[T Ordered](slice []T) T {
+    if len(slice) == 0 {
+        panic("slice is empty")
+    }
+    max := slice[0]
+    for _, v := range slice[1:] {
+        if v > max {
+            max = v
+        }
+    }
+    return max
+}
+```
+
+#### 17.2.3 近似类型约束
+
+使用`~`操作符匹配底层类型为 T 的所有类型（包括自定义类型）：
+
+```go
+type MyInt int
+
+// 约束匹配所有底层类型为int的类型
+type IntLike interface {
+    ~int
+}
+
+func Double[T IntLike](x T) T {
+    return x * 2
+}
+
+func main() {
+    var a int = 5
+    var b MyInt = 10
+    fmt.Println(Double(a))  // 输出 10
+    fmt.Println(Double(b))  // 输出 20（MyInt底层是int）
+}
+```
+
+### 17.3 类型推断
+
+Go 语言泛型支持强大的**类型推断**机制，在大多数情况下可以省略类型参数，让代码更简洁：
+
+#### 17.3.1 函数参数类型推断
+
+```go
+// 无需显式指定类型参数T
+sum := SumNumbers(map[string]int64{"a": 1, "b": 2, "c": 3})
+fmt.Println(sum)  // 输出 6
+```
+
+#### 17.3.2 赋值语句类型推断
+
+```go
+// 从右侧推断Stack的类型参数为int
+intStack := Stack[int]{}
+// 等价于：
+var intStack Stack[int]
+```
+
+#### 17.3.3 方法调用类型推断
+
+```go
+intStack.Push(1)  // 从参数1推断T=int
+element, ok := intStack.Pop()  // 从返回值推断T=int
+```
+
+### 17.4 泛型接口
+
+接口可以包含类型参数，定义更灵活的抽象：
+
+```go
+type Parser[T any] interface {
+    Parse(data []byte) (T, error)
+    String() string
+}
+
+// 实现JSON解析器
+type JSONParser[T any] struct{}
+
+func (p JSONParser[T]) Parse(data []byte) (T, error) {
+    var result T
+    err := json.Unmarshal(data, &result)
+    return result, err
+}
+
+func (p JSONParser[T]) String() string {
+    return "JSON parser"
+}
+```
+
