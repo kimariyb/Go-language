@@ -1,0 +1,9 @@
+│   ├── 01-basics.md
+│   ├── 02-types.md
+│   ├── 03-operators.md
+│   ├── 04-control-flow.md
+│   ├── 05-array-slice.md
+│   ├── 06-map.md
+│   ├── 07-functions.md
+│   ├── 08-pointer.md
+│   └── 09-struct.md
