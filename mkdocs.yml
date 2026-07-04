@@ -1,0 +1,73 @@
+site_name: Go Language Tutorial
+site_description: 从零开始的 Go 语言入门教程 — 涵盖从基础语法到高级特性的全部核心知识点
+site_author: kimariyb
+use_directory_urls: false
+site_url: https://kimariyb.github.io/go-language-tutorial
+
+repo_name: kimariyb/Go-language
+repo_url: https://github.com/kimariyb/Go-language
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到暗色模式
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到亮色模式
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+  - toc:
+      permalink: true
+
+nav:
+  - 首页: index.md
+  - 第1章 变量和常量: 01-basics.md
+  - 第2章 基本数据类型: 02-types.md
+  - 第3章 运算符: 03-operators.md
+  - 第4章 流程控制: 04-control-flow.md
+  - 第5章 数组: 05-array-slice.md
+  - 第6章 切片: 06-slice.md
+  - 第7章 哈希表: 07-map.md
+  - 第8章 函数: 08-functions.md
+  - 第9章 指针: 09-pointer.md
+  - 第10章 结构体: 10-struct.md
+  - 第11章 JSON: 11-json.md
+  - 第12章 包: 12-package.md
+  - 第13章 接口: 13-interface.md
+  - 第14章 协程: 14-goroutine.md
+  - 第15章 反射: 15-reflection.md
+  - 第16章 IO 流: 16-io.md
+  - 第17章 泛型: 17-generics.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/kimariyb
+
+copyright: Copyright &copy; 2025 kimariyb

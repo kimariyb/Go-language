@@ -39,3 +39,7 @@ Thumbs.db
 
 # Generated docs
 *.pdf
+
+# MkDocs generated site
+site/
+.cache/
