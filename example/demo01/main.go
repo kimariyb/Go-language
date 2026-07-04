@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第1章 变量和常量 - var、短变量声明、常量
 
 import "fmt"
 

@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第15章 反射 - TypeOf/ValueOf
 
 import (
 	"fmt"

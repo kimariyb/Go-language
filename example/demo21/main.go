@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第12章 包 - go mod + 自定义包
 
 import (
 	"demo21/test"

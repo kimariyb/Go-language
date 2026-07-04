@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第8章 函数 - 可变参数
 
 import "fmt"
 

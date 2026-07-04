@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第9章 指针 - &和*操作
 
 import "fmt"
 

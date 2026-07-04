@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第2章 基本数据类型 - 字符串修改(byte/rune)
 
 import (
 	"fmt"

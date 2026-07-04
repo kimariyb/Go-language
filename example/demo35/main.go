@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第17章 泛型 - 泛型函数与约束
 
 import "fmt"
 

@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第13章 接口 - 接口实现
 
 import "fmt"
 

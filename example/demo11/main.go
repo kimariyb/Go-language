@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第4章 流程控制 - switch/case
 
 import "fmt"
 

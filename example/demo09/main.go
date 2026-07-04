@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第3章 运算符 - 关系运算符
 
 import "fmt"
 

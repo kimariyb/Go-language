@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第14章 协程 - GOMAXPROCS/并发性能
 
 import (
 	"fmt"

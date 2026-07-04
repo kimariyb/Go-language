@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第15章 反射 - 反射修改结构体属性
 
 import (
 	"fmt"

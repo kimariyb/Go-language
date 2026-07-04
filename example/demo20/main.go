@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第11章 JSON - 序列化与反序列化
 
 import (
 	"encoding/json"

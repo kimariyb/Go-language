@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第5章 数组 - 数组声明与遍历
 
 import "fmt"
 

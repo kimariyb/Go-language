@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第10章 结构体 - 方法、值/指针接收者
 
 import "fmt"
 

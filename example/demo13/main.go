@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第6章 切片 - 元素删除操作
 
 import (
 	"fmt"

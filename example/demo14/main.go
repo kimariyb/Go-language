@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第7章 哈希表(map) - 增删改查
 
 import "fmt"
 

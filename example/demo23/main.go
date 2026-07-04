@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第13章 接口 - 一个结构体实现多个接口
 
 import "fmt"
 

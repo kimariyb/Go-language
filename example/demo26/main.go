@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第14章 协程 - 并发素数计算
 
 import (
 	"fmt"

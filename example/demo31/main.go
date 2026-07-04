@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第15章 反射 - 结构体字段/方法反射
 
 import (
 	"fmt"

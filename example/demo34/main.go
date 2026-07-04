@@ -1,4 +1,5 @@
 package main
+// Go语言教程: 第16章 IO流 - 文件写入
 
 import (
 	"io/ioutil"
